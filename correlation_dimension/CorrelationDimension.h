@@ -20,14 +20,14 @@ namespace NonlinearMath
 		CorrelationDimension() {}
 		~CorrelationDimension() {}
 		// m - number of variable at vector
-		double Evaluate(const Row<Matrix< T >> row, const size_t tau = 16, const size_t pointsCount = 3, const double epsilon = 0.1);
+		double Evaluate(const std::vector<T> row, const size_t tau = 16, const size_t pointsCount = 3, const double epsilon = 0.1);
 
 	private:
 		T m_obj;
 	};
 
 	template <class T>
-	double CorrelationDimension<T>::Evaluate(const Row<Matrix< T >> row, const size_t tau, const size_t pointsCount, const double epsilon)
+	double CorrelationDimension<T>::Evaluate(const std::vector<T> row, const size_t tau, const size_t pointsCount, const double epsilon)
 	{
 		using namespace std;
 		vector<deque<T>> delayVector;

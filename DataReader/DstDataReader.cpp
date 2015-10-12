@@ -79,25 +79,33 @@ std::list<int> DstDataReader::LoadDst(boost::gregorian::date dateFrom, boost::gr
 	if (dateFrom > dateTo)
 		throw std::exception("", DataReader::RetCode::BadDate);
 
-	for (year_iterator year_iter(dateFrom); year_iter != dateTo; ++year_iter)
-	for (month_iterator month_iter(dateFrom); month_iter != dateTo; ++month_iter)
-	{
-		listResult = LoadDst(boost::gregorian::date(year_iter->year(), month_iter->month(), 1));
-		//int i = 0;
-		//i++;
-	}
+	for (year_iterator year_iter(dateFrom); year_iter < dateTo; ++year_iter)
+		for (month_iterator month_iter(dateFrom); month_iter != dateTo; ++month_iter)
+		{
+			std::list<int> listTemp = LoadDst(boost::gregorian::date(year_iter->year(), month_iter->month(), 1));
+			listResult.insert(listResult.end(), listTemp.begin(), listTemp.end());
+		}
+
+	return listResult;
 }
 
 
 // *************
 // example usage
 // *************
-int main()
-{
-	string sFilePath("C:\\Users\\Maksym\\Documents\\Visual Studio 2015\\Projects\\NonlinearAnalysis\\external_files\\data\\kyoto-dst\\kyoto-dst-hourly");
-
-	gsl::owner<DataReader*> pDataReader = new DstDataReader(sFilePath);
-	std::list<int> row = pDataReader->LoadDst(boost::gregorian::date(2015, 1, 1));
-
-	delete pDataReader;
-}
+//#include <iostream>
+//int main()
+//{
+//	string sFilePath("..\\external_files\\data\\kyoto-dst\\kyoto-dst-hourly");
+//	gsl::owner<DataReader*> pDataReader = nullptr;
+//	try {
+//		pDataReader = new DstDataReader(sFilePath);
+//		std::list<int> row = pDataReader->LoadDst(boost::gregorian::date(2015, 1, 1), boost::gregorian::date(2015, 5, 1));
+//
+//	}catch(exception &ex)
+//	{
+//		cout << ex.what() << endl;
+//	}
+//
+//	delete pDataReader;
+//}

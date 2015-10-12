@@ -1,0 +1,4 @@
+WDC for Geomagnetism, Kyoto
+Hourly Equatorial Dst Values (REAL-TIME)
+
+http://wdc.kugi.kyoto-u.ac.jp/dst_realtime/201507/index.html
